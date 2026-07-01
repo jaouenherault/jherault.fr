@@ -71,19 +71,16 @@ body{
 const pageFlip = new St.PageFlip(
     document.getElementById("flipbook"),
     {
-        width: 500,
+       width: 500,
         height: 700,
         size: "stretch",
-        minWidth: 500,
-        maxWidth: 2000,
-        minHeight: 700,
-        maxHeight: 2800,
+        minWidth: 315,
+        maxWidth: 1000,
+        minHeight: 420,
+        maxHeight: 1350,
         showCover: true,
-        usePortrait: false,
-        mobileScrollSupport: false,
-        maxShadowOpacity: 0.2,
-        startZIndex: 0,
-        autoSize: true
+        usePortrait: false
+        mobileScrollSupport: false
     }
 );
 
