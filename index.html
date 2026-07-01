@@ -74,12 +74,16 @@ const pageFlip = new St.PageFlip(
         width: 500,
         height: 700,
         size: "stretch",
-        minWidth: 315,
-        maxWidth: 1000,
-        minHeight: 420,
-        maxHeight: 1350,
+        minWidth: 500,
+        maxWidth: 2000,
+        minHeight: 700,
+        maxHeight: 2800,
         showCover: true,
-        mobileScrollSupport: true
+        usePortrait: false,
+        mobileScrollSupport: false,
+        maxShadowOpacity: 0.2,
+        startZIndex: 0,
+        autoSize: true
     }
 );
 
