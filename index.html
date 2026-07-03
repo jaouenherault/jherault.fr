@@ -12,14 +12,17 @@ body{
     margin:0;
     background:#1e1e1e;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    height:100vh;
-    overflow:hidden;
+    min-height:100vh;
+    padding:20px;
+    box-sizing:border-box;
 }
 
 #flipbook{
-    width:1000px;
+    width:100%;
+    max-width:1000px;
     height:700px;
 }
 
@@ -30,14 +33,34 @@ body{
 .page img{
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:contain;
+}
+#mobileMessage{
+    display:none;
+    color:white;
+    text-align:center;
+    margin-bottom:20px;
+    font-family:Arial,sans-serif;
 }
 
+@media (max-width:768px){
+
+    body{
+        flex-direction:column;
+    }
+
+    #mobileMessage{
+        display:block;
+    }
+
+}
 </style>
 </head>
 
 <body>
-
+<div id="mobileMessage">
+📱 Pour une meilleure expérience, passez votre téléphone en mode paysage.
+</div>
 <div id="flipbook">
 
 <div class="page"><img src="pages/current/MCV.jpg"></div>
@@ -71,15 +94,24 @@ body{
 const pageFlip = new St.PageFlip(
     document.getElementById("flipbook"),
     {
-        width: 500,
-        height: 700,
-        size: "stretch",
-        minWidth: 315,
-        maxWidth: 1000,
-        minHeight: 420,
-        maxHeight: 1350,
-        showCover: true,
-        mobileScrollSupport: true
+        width:500,
+        height:700,
+
+        size:"stretch",
+
+        minWidth:280,
+        maxWidth:1000,
+
+        minHeight:400,
+        maxHeight:1400,
+
+        showCover:true,
+
+        usePortrait:true,
+
+        mobileScrollSupport:true,
+
+        autoSize:true
     }
 );
 
