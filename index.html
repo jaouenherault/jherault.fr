@@ -162,6 +162,27 @@ body{
     gap:6px;
 }
 
+#footerBar{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:Arial,sans-serif;
+    font-size:13px;
+    color:#777;
+}
+#footerBar a{
+    color:#999;
+    text-decoration:none;
+}
+#footerBar a:hover{
+    color:#fff;
+    text-decoration:underline;
+}
+#footerBar .footer-sep{
+    color:#444;
+}
+
 #lightbox{
     display:none;
     position:fixed;
@@ -244,6 +265,12 @@ body{
     <span id="pageIndicator">Page 1 / 21</span>
     <button id="nextBtn" class="ctrl-btn" aria-label="Page suivante">›</button>
     <button id="zoomBtn" class="ctrl-btn" aria-label="Zoomer la page">🔍</button>
+</div>
+
+<div id="footerBar">
+    <a href="https://www.linkedin.com/in/jaouen-h%C3%A9rault/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:jaouenherault@gmail.com">Me contacter</a>
 </div>
 
 <div id="lightbox">
