@@ -169,18 +169,24 @@ body{
     gap:10px;
     font-family:Arial,sans-serif;
     font-size:13px;
-    color:#777;
+    position:relative;
+    z-index:10;
 }
 #footerBar a{
-    color:#999;
+    color:#eee;
     text-decoration:none;
+    padding:7px 16px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    transition:background .15s ease, border-color .15s ease;
 }
 #footerBar a:hover{
     color:#fff;
-    text-decoration:underline;
-}
-#footerBar .footer-sep{
-    color:#444;
+    background:rgba(255,255,255,.18);
+    border-color:rgba(255,255,255,.6);
 }
 
 #lightbox{
@@ -269,7 +275,6 @@ body{
 
 <div id="footerBar">
     <a href="https://www.linkedin.com/in/jaouen-h%C3%A9rault/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <span class="footer-sep">·</span>
     <a href="mailto:jaouenherault@gmail.com">Me contacter</a>
 </div>
 
