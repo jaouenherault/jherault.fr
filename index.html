@@ -226,15 +226,28 @@ body{
 #lightbox.open{
     display:flex;
 }
-#lightbox img{
+#lightboxImages{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
     max-width:95vw;
     max-height:95vh;
+}
+#lightboxImages img{
+    max-width:95vw;
+    max-height:95vh;
+    min-width:0;
+    flex:1 1 0;
+    object-fit:contain;
     transition:transform .2s ease;
     cursor:zoom-in;
     touch-action:pinch-zoom;
 }
-#lightbox img.zoomed{
+#lightboxImages img.zoomed{
     cursor:zoom-out;
+    position:relative;
+    z-index:1;
 }
 #lightboxClose{
     position:fixed;
@@ -305,7 +318,7 @@ body{
 
 <div id="lightbox">
     <span id="lightboxClose">&times;</span>
-    <img id="lightboxImg" src="" alt="Page agrandie">
+    <div id="lightboxImages"></div>
 </div>
 
 <script src="js/page-flip.browser.js"></script>
@@ -346,7 +359,7 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const zoomBtn = document.getElementById("zoomBtn");
 const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
+const lightboxImages = document.getElementById("lightboxImages");
 const lightboxClose = document.getElementById("lightboxClose");
 const introModal = document.getElementById("introModal");
 const introModalClose = document.getElementById("introModalClose");
@@ -374,12 +387,24 @@ function updateIndicator(index){
     nextBtn.disabled = index >= totalPages - 1;
 }
 
-function openZoom(src){
-    if(!src) return;
-    lightboxImg.src = src;
-    lightboxImg.classList.remove("zoomed");
-    lightboxImg.style.transform = "scale(1)";
+function openZoom(srcs){
+    const list = (Array.isArray(srcs) ? srcs : [srcs]).filter(Boolean);
+    if(!list.length) return;
+    lightboxImages.innerHTML = "";
+    list.forEach((src) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Page agrandie";
+        lightboxImages.appendChild(img);
+    });
     lightbox.classList.add("open");
+}
+
+function getVisiblePageIndices(){
+    const pc = pageFlip.getPageCollection();
+    const spreads = pageFlip.getOrientation() === "portrait" ? pc.portraitSpread : pc.landscapeSpread;
+    const spread = spreads && spreads[pc.currentSpreadIndex];
+    return spread && spread.length ? spread : [pageFlip.getCurrentPageIndex()];
 }
 
 function closeLightbox(){
@@ -418,10 +443,13 @@ prevBtn.addEventListener("click", () => pageFlip.flipPrev());
 nextBtn.addEventListener("click", () => pageFlip.flipNext());
 
 zoomBtn.addEventListener("click", () => {
-    const idx = pageFlip.getCurrentPageIndex();
-    loadPage(idx);
-    const img = pages[idx] ? pages[idx].querySelector("img") : null;
-    openZoom(img ? img.src : null);
+    const indices = getVisiblePageIndices();
+    indices.forEach(loadPage);
+    const srcs = indices.map((i) => {
+        const img = pages[i] ? pages[i].querySelector("img") : null;
+        return img ? img.src : null;
+    });
+    openZoom(srcs);
 });
 
 window.addEventListener("keydown", (e) => {
@@ -438,17 +466,19 @@ lightbox.addEventListener("click", (e) => {
 });
 lightboxClose.addEventListener("click", closeLightbox);
 
-lightboxImg.addEventListener("click", (e) => {
-    if(!lightboxImg.classList.contains("zoomed")){
-        const rect = lightboxImg.getBoundingClientRect();
+lightboxImages.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if(!img) return;
+    if(!img.classList.contains("zoomed")){
+        const rect = img.getBoundingClientRect();
         const originX = ((e.clientX - rect.left) / rect.width) * 100;
         const originY = ((e.clientY - rect.top) / rect.height) * 100;
-        lightboxImg.style.transformOrigin = originX + "% " + originY + "%";
-        lightboxImg.style.transform = "scale(2.2)";
-        lightboxImg.classList.add("zoomed");
+        img.style.transformOrigin = originX + "% " + originY + "%";
+        img.style.transform = "scale(2.2)";
+        img.classList.add("zoomed");
     } else {
-        lightboxImg.style.transform = "scale(1)";
-        lightboxImg.classList.remove("zoomed");
+        img.style.transform = "scale(1)";
+        img.classList.remove("zoomed");
     }
 });
 
