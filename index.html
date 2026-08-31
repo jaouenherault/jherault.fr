@@ -240,14 +240,21 @@ body{
     min-width:0;
     flex:1 1 0;
     object-fit:contain;
+    transform-origin:center center;
     transition:transform .2s ease;
     cursor:zoom-in;
-    touch-action:pinch-zoom;
+    touch-action:none;
+    user-select:none;
+    -webkit-user-drag:none;
 }
 #lightboxImages img.zoomed{
-    cursor:zoom-out;
+    cursor:grab;
     position:relative;
     z-index:1;
+}
+#lightboxImages img.dragging{
+    cursor:grabbing;
+    transition:none;
 }
 #lightboxClose{
     position:fixed;
@@ -387,6 +394,64 @@ function updateIndicator(index){
     nextBtn.disabled = index >= totalPages - 1;
 }
 
+const ZOOM_SCALE = 2.2;
+
+function attachZoomPan(img){
+    let downX, downY, startTx, startTy, moved, dragging;
+
+    img.addEventListener("pointerdown", (e) => {
+        dragging = img.classList.contains("zoomed");
+        moved = false;
+        downX = e.clientX;
+        downY = e.clientY;
+        startTx = parseFloat(img.dataset.tx || 0);
+        startTy = parseFloat(img.dataset.ty || 0);
+        try { img.setPointerCapture(e.pointerId); } catch(err) {}
+        if(dragging) img.classList.add("dragging");
+    });
+
+    img.addEventListener("pointermove", (e) => {
+        if(downX === undefined) return;
+        const dx = e.clientX - downX;
+        const dy = e.clientY - downY;
+        if(Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+        if(dragging && moved){
+            const tx = startTx + dx / ZOOM_SCALE;
+            const ty = startTy + dy / ZOOM_SCALE;
+            img.dataset.tx = tx;
+            img.dataset.ty = ty;
+            img.style.transform = "scale(" + ZOOM_SCALE + ") translate(" + tx + "px, " + ty + "px)";
+        }
+    });
+
+    img.addEventListener("pointerup", (e) => {
+        if(downX === undefined) return;
+        img.classList.remove("dragging");
+        if(!moved){
+            if(!img.classList.contains("zoomed")){
+                const rect = img.getBoundingClientRect();
+                const tx = rect.width / 2 - (e.clientX - rect.left);
+                const ty = rect.height / 2 - (e.clientY - rect.top);
+                img.dataset.tx = tx;
+                img.dataset.ty = ty;
+                img.style.transform = "scale(" + ZOOM_SCALE + ") translate(" + tx + "px, " + ty + "px)";
+                img.classList.add("zoomed");
+            } else {
+                img.style.transform = "scale(1)";
+                img.dataset.tx = 0;
+                img.dataset.ty = 0;
+                img.classList.remove("zoomed");
+            }
+        }
+        downX = undefined;
+    });
+
+    img.addEventListener("pointercancel", () => {
+        downX = undefined;
+        img.classList.remove("dragging");
+    });
+}
+
 function openZoom(srcs){
     const list = (Array.isArray(srcs) ? srcs : [srcs]).filter(Boolean);
     if(!list.length) return;
@@ -395,6 +460,8 @@ function openZoom(srcs){
         const img = document.createElement("img");
         img.src = src;
         img.alt = "Page agrandie";
+        img.draggable = false;
+        attachZoomPan(img);
         lightboxImages.appendChild(img);
     });
     lightbox.classList.add("open");
@@ -466,21 +533,6 @@ lightbox.addEventListener("click", (e) => {
 });
 lightboxClose.addEventListener("click", closeLightbox);
 
-lightboxImages.addEventListener("click", (e) => {
-    const img = e.target.closest("img");
-    if(!img) return;
-    if(!img.classList.contains("zoomed")){
-        const rect = img.getBoundingClientRect();
-        const originX = ((e.clientX - rect.left) / rect.width) * 100;
-        const originY = ((e.clientY - rect.top) / rect.height) * 100;
-        img.style.transformOrigin = originX + "% " + originY + "%";
-        img.style.transform = "scale(2.2)";
-        img.classList.add("zoomed");
-    } else {
-        img.style.transform = "scale(1)";
-        img.classList.remove("zoomed");
-    }
-});
 
 </script>
 
