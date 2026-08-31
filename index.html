@@ -35,7 +35,7 @@ body{
     height:100%;
     object-fit:cover;
 }
-#mobileModal{
+#introModal{
     display:none;
     position:fixed;
     inset:0;
@@ -46,10 +46,10 @@ body{
     padding:24px;
     box-sizing:border-box;
 }
-#mobileModal.open{
+#introModal.open{
     display:flex;
 }
-#mobileModalBox{
+#introModalBox{
     background:#2a2a2a;
     color:#eee;
     border-radius:12px;
@@ -60,7 +60,7 @@ body{
     font-size:15px;
     line-height:1.5;
 }
-#mobileModalClose{
+#introModalClose{
     margin-top:16px;
     background:#444;
     color:#fff;
@@ -70,7 +70,7 @@ body{
     font-size:14px;
     cursor:pointer;
 }
-#mobileModalClose:hover{
+#introModalClose:hover{
     background:#555;
 }
 
@@ -161,11 +161,13 @@ body{
 </head>
 
 <body>
-<div id="mobileModal">
-    <div id="mobileModalBox">
-        📱 Pour une meilleure expérience, ouvrez cette page sur votre ordinateur (ou passez votre navigateur en « mode ordinateur » pour profiter des pages en vis-à-vis).
+<div id="introModal">
+    <div id="introModalBox">
+        👋 Bienvenue sur le CV magazine de Jaouen Hérault !
+        <br><br>
+        Utilisez les flèches ‹ › (ou les touches du clavier) pour tourner les pages, et 🔍 pour zoomer sur le texte.
         <br>
-        <button id="mobileModalClose">J'ai compris</button>
+        <button id="introModalClose">J'ai compris</button>
     </div>
 </div>
 <div id="flipbook">
@@ -246,8 +248,8 @@ const zoomBtn = document.getElementById("zoomBtn");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxClose = document.getElementById("lightboxClose");
-const mobileModal = document.getElementById("mobileModal");
-const mobileModalClose = document.getElementById("mobileModalClose");
+const introModal = document.getElementById("introModal");
+const introModalClose = document.getElementById("introModalClose");
 
 function loadPage(index){
     const page = pages[index];
@@ -285,13 +287,11 @@ function closeLightbox(){
 loadAround(0);
 updateIndicator(0);
 
-if(window.matchMedia("(max-width: 768px)").matches){
-    mobileModal.classList.add("open");
-}
+introModal.classList.add("open");
 
-mobileModalClose.addEventListener("click", () => mobileModal.classList.remove("open"));
-mobileModal.addEventListener("click", (e) => {
-    if(e.target === mobileModal) mobileModal.classList.remove("open");
+introModalClose.addEventListener("click", () => introModal.classList.remove("open"));
+introModal.addEventListener("click", (e) => {
+    if(e.target === introModal) introModal.classList.remove("open");
 });
 
 pageFlip.on("flip", (e) => {
@@ -314,7 +314,7 @@ window.addEventListener("keydown", (e) => {
     if(e.key === "ArrowRight") pageFlip.flipNext();
     if(e.key === "Escape"){
         closeLightbox();
-        mobileModal.classList.remove("open");
+        introModal.classList.remove("open");
     }
 });
 
