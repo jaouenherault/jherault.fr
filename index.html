@@ -50,28 +50,70 @@ body{
     display:flex;
 }
 #introModalBox{
-    background:#2a2a2a;
-    color:#eee;
+    background:#fff;
+    color:#1e1e1e;
     border-radius:12px;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    width:150px;
+    padding:26px;
+    transform:scale(.92);
+    opacity:0;
+    transition:
+        width .55s cubic-bezier(.4,0,.2,1),
+        padding .55s cubic-bezier(.4,0,.2,1),
+        transform .4s ease,
+        opacity .4s ease;
+}
+#introModal.open #introModalBox{
+    transform:scale(1);
+    opacity:1;
+}
+#introModalBox.expanded{
+    width:min(350px, 88vw);
     padding:24px;
-    max-width:340px;
-    text-align:center;
+}
+#introLogo{
+    width:74px;
+    height:auto;
+    flex-shrink:0;
+    display:block;
+}
+#introModalBox.expanded #introLogo{
+    margin-right:16px;
+}
+#introContent{
+    width:min(200px, calc(88vw - 138px));
+    flex-shrink:0;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    text-align:left;
     font-family:Arial,sans-serif;
-    font-size:15px;
+    font-size:14px;
     line-height:1.5;
+    transition:max-height .5s cubic-bezier(.4,0,.2,1), opacity .35s ease .15s;
+}
+#introModalBox.expanded #introContent{
+    max-height:220px;
+    opacity:1;
 }
 #introModalClose{
-    margin-top:16px;
-    background:#444;
+    margin-top:14px;
+    background:#1e1e1e;
     color:#fff;
     border:none;
-    padding:10px 22px;
+    padding:9px 20px;
     border-radius:20px;
-    font-size:14px;
+    font-size:13px;
     cursor:pointer;
+    white-space:nowrap;
 }
 #introModalClose:hover{
-    background:#555;
+    background:#3a3a3a;
 }
 
 #controls{
@@ -163,9 +205,12 @@ body{
 <body>
 <div id="introModal">
     <div id="introModalBox">
-        📱 Pour une meilleure expérience, ouvrez cette page sur votre ordinateur (ou passez votre navigateur en « mode ordinateur » pour profiter des pages en vis-à-vis).
-        <br>
-        <button id="introModalClose">J'ai compris</button>
+        <img id="introLogo" src="logo-mcv.png" alt="MCV">
+        <div id="introContent">
+            📱 Pour une meilleure expérience, ouvrez cette page sur votre ordinateur (ou passez votre navigateur en « mode ordinateur » pour profiter des pages en vis-à-vis).
+            <br>
+            <button id="introModalClose">J'ai compris</button>
+        </div>
     </div>
 </div>
 <div id="flipbook">
@@ -285,7 +330,10 @@ function closeLightbox(){
 loadAround(0);
 updateIndicator(0);
 
+const introModalBox = document.getElementById("introModalBox");
+
 introModal.classList.add("open");
+setTimeout(() => introModalBox.classList.add("expanded"), 700);
 
 introModalClose.addEventListener("click", () => introModal.classList.remove("open"));
 introModal.addEventListener("click", (e) => {
