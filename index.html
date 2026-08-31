@@ -35,24 +35,123 @@ body{
     height:100%;
     object-fit:cover;
 }
-#mobileMessage{
+#mobileModal{
     display:none;
-    color:white;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+}
+#mobileModal.open{
+    display:flex;
+}
+#mobileModalBox{
+    background:#2a2a2a;
+    color:#eee;
+    border-radius:12px;
+    padding:24px;
+    max-width:340px;
     text-align:center;
-    margin-bottom:20px;
     font-family:Arial,sans-serif;
+    font-size:15px;
+    line-height:1.5;
+}
+#mobileModalClose{
+    margin-top:16px;
+    background:#444;
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:20px;
+    font-size:14px;
+    cursor:pointer;
+}
+#mobileModalClose:hover{
+    background:#555;
 }
 
-@media (max-width:768px){
+#controls{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:16px;
+    font-family:Arial,sans-serif;
+    color:#eee;
+}
+.ctrl-btn{
+    background:#2a2a2a;
+    border:1px solid #444;
+    color:#eee;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .15s;
+}
+.ctrl-btn:hover{
+    background:#3a3a3a;
+}
+.ctrl-btn:disabled{
+    opacity:.35;
+    cursor:default;
+}
+#pageIndicator{
+    min-width:90px;
+    text-align:center;
+    font-size:14px;
+    user-select:none;
+}
+#zoomBtn{
+    width:auto;
+    padding:0 16px;
+    border-radius:20px;
+    font-size:14px;
+    gap:6px;
+}
 
-    body{
-        flex-direction:column;
-    }
-
-    #mobileMessage{
-        display:block;
-    }
-
+#lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+}
+#lightbox.open{
+    display:flex;
+}
+#lightbox img{
+    max-width:95vw;
+    max-height:95vh;
+    transition:transform .2s ease;
+    cursor:zoom-in;
+    touch-action:pinch-zoom;
+}
+#lightbox img.zoomed{
+    cursor:zoom-out;
+}
+#lightboxClose{
+    position:fixed;
+    top:16px;
+    right:20px;
+    color:#fff;
+    font-size:34px;
+    cursor:pointer;
+    z-index:1001;
+    line-height:1;
+    font-family:Arial,sans-serif;
 }
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c7647a94-d341-4b45-a3fe-d6fda2beb1f7"></script>
 
@@ -60,8 +159,12 @@ body{
 </head>
 
 <body>
-<div id="mobileMessage">
-📱 Pour une meilleure expérience, ouvrez cette page sur votre ordinateur (ou passez votre navigateur en « mode ordinateur » pour profiter des pages en vis-à-vis).
+<div id="mobileModal">
+    <div id="mobileModalBox">
+        📱 Pour une meilleure expérience, ouvrez cette page sur votre ordinateur (ou passez votre navigateur en « mode ordinateur » pour profiter des pages en vis-à-vis).
+        <br>
+        <button id="mobileModalClose">J'ai compris</button>
+    </div>
 </div>
 <div id="flipbook">
 
@@ -69,24 +172,36 @@ body{
 <div class="page"><img src="pages/current/MCV2.jpg"></div>
 <div class="page"><img src="pages/current/MCV3.jpg"></div>
 <div class="page"><img src="pages/current/MCV4.jpg"></div>
-<div class="page"><img src="pages/current/MCV5.jpg"></div>
-<div class="page"><img src="pages/current/MCV6.jpg"></div>
-<div class="page"><img src="pages/current/MCV7.jpg"></div>
-<div class="page"><img src="pages/current/MCV8.jpg"></div>
-<div class="page"><img src="pages/current/MCV9.jpg"></div>
-<div class="page"><img src="pages/current/MCV10.jpg"></div>
-<div class="page"><img src="pages/current/MCV11.jpg"></div>
-<div class="page"><img src="pages/current/MCV12.jpg"></div>
-<div class="page"><img src="pages/current/MCV13.jpg"></div>
-<div class="page"><img src="pages/current/MCV14.jpg"></div>
-<div class="page"><img src="pages/current/MCV15.jpg"></div>
-<div class="page"><img src="pages/current/MCV16.jpg"></div>
-<div class="page"><img src="pages/current/MCV17.jpg"></div>
-<div class="page"><img src="pages/current/MCV18.jpg"></div>
-<div class="page"><img src="pages/current/MCV19.jpg"></div>
-<div class="page"><img src="pages/current/MCV20.jpg"></div>
-<div class="page"><img src="pages/current/MCV21.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV5.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV6.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV7.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV8.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV9.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV10.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV11.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV12.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV13.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV14.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV15.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV16.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV17.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV18.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV19.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV20.jpg"></div>
+<div class="page"><img data-src="pages/current/MCV21.jpg"></div>
 
+</div>
+
+<div id="controls">
+    <button id="prevBtn" class="ctrl-btn" aria-label="Page précédente">‹</button>
+    <span id="pageIndicator">Page 1 / 21</span>
+    <button id="nextBtn" class="ctrl-btn" aria-label="Page suivante">›</button>
+    <button id="zoomBtn" class="ctrl-btn" aria-label="Zoomer la page">🔍</button>
+</div>
+
+<div id="lightbox">
+    <span id="lightboxClose">&times;</span>
+    <img id="lightboxImg" src="" alt="Page agrandie">
 </div>
 
 <script src="js/page-flip.browser.js"></script>
@@ -118,6 +233,107 @@ const pageFlip = new St.PageFlip(
 );
 
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+
+const pages = document.querySelectorAll(".page");
+const totalPages = pages.length;
+
+const pageIndicator = document.getElementById("pageIndicator");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const zoomBtn = document.getElementById("zoomBtn");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxClose = document.getElementById("lightboxClose");
+const mobileModal = document.getElementById("mobileModal");
+const mobileModalClose = document.getElementById("mobileModalClose");
+
+function loadPage(index){
+    const page = pages[index];
+    if(!page) return;
+    const img = page.querySelector("img");
+    if(img && !img.src && img.dataset.src){
+        img.src = img.dataset.src;
+    }
+}
+
+function loadAround(index){
+    for(let i = Math.max(0, index - 1); i <= Math.min(totalPages - 1, index + 3); i++){
+        loadPage(i);
+    }
+}
+
+function updateIndicator(index){
+    pageIndicator.textContent = "Page " + (index + 1) + " / " + totalPages;
+    prevBtn.disabled = index <= 0;
+    nextBtn.disabled = index >= totalPages - 1;
+}
+
+function openZoom(src){
+    if(!src) return;
+    lightboxImg.src = src;
+    lightboxImg.classList.remove("zoomed");
+    lightboxImg.style.transform = "scale(1)";
+    lightbox.classList.add("open");
+}
+
+function closeLightbox(){
+    lightbox.classList.remove("open");
+}
+
+loadAround(0);
+updateIndicator(0);
+
+if(window.matchMedia("(max-width: 768px)").matches){
+    mobileModal.classList.add("open");
+}
+
+mobileModalClose.addEventListener("click", () => mobileModal.classList.remove("open"));
+mobileModal.addEventListener("click", (e) => {
+    if(e.target === mobileModal) mobileModal.classList.remove("open");
+});
+
+pageFlip.on("flip", (e) => {
+    updateIndicator(e.data);
+    loadAround(e.data);
+});
+
+prevBtn.addEventListener("click", () => pageFlip.flipPrev());
+nextBtn.addEventListener("click", () => pageFlip.flipNext());
+
+zoomBtn.addEventListener("click", () => {
+    const idx = pageFlip.getCurrentPageIndex();
+    loadPage(idx);
+    const img = pages[idx] ? pages[idx].querySelector("img") : null;
+    openZoom(img ? img.src : null);
+});
+
+window.addEventListener("keydown", (e) => {
+    if(e.key === "ArrowLeft") pageFlip.flipPrev();
+    if(e.key === "ArrowRight") pageFlip.flipNext();
+    if(e.key === "Escape"){
+        closeLightbox();
+        mobileModal.classList.remove("open");
+    }
+});
+
+lightbox.addEventListener("click", (e) => {
+    if(e.target === lightbox) closeLightbox();
+});
+lightboxClose.addEventListener("click", closeLightbox);
+
+lightboxImg.addEventListener("click", (e) => {
+    if(!lightboxImg.classList.contains("zoomed")){
+        const rect = lightboxImg.getBoundingClientRect();
+        const originX = ((e.clientX - rect.left) / rect.width) * 100;
+        const originY = ((e.clientY - rect.top) / rect.height) * 100;
+        lightboxImg.style.transformOrigin = originX + "% " + originY + "%";
+        lightboxImg.style.transform = "scale(2.2)";
+        lightboxImg.classList.add("zoomed");
+    } else {
+        lightboxImg.style.transform = "scale(1)";
+        lightboxImg.classList.remove("zoomed");
+    }
+});
 
 </script>
 
