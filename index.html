@@ -4,7 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jaouen Hérault</title>
+<meta name="description" content="CV interactif, profil LinkedIn, campagne de communication &amp; contact — portfolio de recherche d'emploi.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jherault.fr/">
+<meta property="og:title" content="Jaouen Hérault">
+<meta property="og:description" content="CV interactif, profil LinkedIn, campagne de communication &amp; contact — portfolio de recherche d'emploi.">
+<meta property="og:image" content="https://jherault.fr/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jaouen Hérault">
+<meta name="twitter:description" content="CV interactif, profil LinkedIn, campagne de communication &amp; contact — portfolio de recherche d'emploi.">
+<meta name="twitter:image" content="https://jherault.fr/og-image.jpg">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c7647a94-d341-4b45-a3fe-d6fda2beb1f7"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -12,176 +26,183 @@
 
 body{
     margin:0;
-    background:#1e1e1e;
+    background:#121216;
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:40px 20px;
-    font-family:Arial,sans-serif;
+    padding:56px 24px;
+    font-family:"Bricolage Grotesque","Segoe UI",Arial,sans-serif;
     color:#eee;
+    overflow-x:hidden;
+}
+
+#glow{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+        radial-gradient(480px 400px at 55% 10%, rgba(236,85,58,.16), transparent 70%),
+        radial-gradient(520px 440px at 30% 38%, rgba(245,213,92,.17), transparent 70%),
+        radial-gradient(520px 440px at 68% 55%, rgba(32,99,154,.26), transparent 70%),
+        radial-gradient(480px 400px at 42% 82%, rgba(60,174,164,.24), transparent 70%);
+    filter:blur(30px);
 }
 
 #hero{
+    position:relative;
+    z-index:1;
     width:100%;
-    max-width:760px;
+    max-width:900px;
     display:flex;
     flex-direction:column;
     align-items:center;
     text-align:center;
 }
 
-#tiles{
-    position:relative;
-    display:flex;
+#nameBanner{
     width:100%;
-    gap:0;
+    max-width:460px;
+    margin:0 0 16px;
+    display:block;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));
+}
+#nameBanner svg{ display:block; width:100%; height:auto; }
+
+#intro{
+    margin:0 0 4px;
+    max-width:560px;
+    font-size:clamp(16px,2.4vw,20px);
+    font-weight:500;
+    letter-spacing:-.005em;
+    line-height:1.4;
+    color:#cfcfd6;
 }
 
-@media (max-width:620px){
-    #tiles{
-        flex-direction:column;
-    }
-}
-
-.tile{
-    flex:1 1 0;
+#puzzleWrap{
     position:relative;
-    min-height:220px;
-    border-radius:22px;
-    padding:28px 24px;
+    width:100%;
+    max-width:720px;
+    aspect-ratio:1/1;
+}
+
+#puzzle{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:62.64%;
+    height:78.8%;
+    aspect-ratio:312.457/393.071;
+    transform:translate(-50%,-50%) rotate(-135deg);
+    transform-origin:center;
+}
+
+.piece{
+    position:absolute;
+    z-index:0;
+    container-type:inline-size;
     display:flex;
     flex-direction:column;
-    justify-content:flex-end;
-    text-align:left;
-    text-decoration:none;
-    color:#fff;
-    overflow:hidden;
-    transition:transform .2s ease, box-shadow .2s ease;
-    cursor:pointer;
-}
-.tile:hover{
-    transform:translateY(-4px);
-    box-shadow:0 14px 30px rgba(0,0,0,.35);
-}
-.tile + .tile{
-    margin-left:14px;
-}
-@media (max-width:620px){
-    .tile + .tile{
-        margin-left:0;
-        margin-top:14px;
-    }
-}
-
-.tile-magazine{
-    background:linear-gradient(135deg,#2f6f8f,#163a4d);
-}
-.tile-campaign{
-    background:linear-gradient(135deg,#d97b3f,#7a3e1d);
-}
-
-.tile-icon{
-    font-size:34px;
-    margin-bottom:12px;
-}
-.tile-label{
-    font-size:19px;
-    font-weight:bold;
-}
-.tile-sub{
-    margin-top:6px;
-    font-size:13px;
-    opacity:.85;
-    line-height:1.4;
-}
-
-.tile-badge{
-    position:absolute;
-    top:16px;
-    right:16px;
-    font-size:11px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    background:rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.4);
-    padding:4px 10px;
-    border-radius:20px;
-    backdrop-filter:blur(4px);
-}
-
-#connector{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    transform:translate(-50%,-50%);
-    background:linear-gradient(90deg,#2f6f8f 50%,#d97b3f 50%);
-    border:4px solid #1e1e1e;
-    z-index:2;
-}
-@media (max-width:620px){
-    #connector{
-        background:linear-gradient(180deg,#2f6f8f 50%,#d97b3f 50%);
-    }
-}
-
-h1{
-    margin:36px 0 6px;
-    font-size:28px;
-    letter-spacing:.02em;
-}
-#tagline{
-    margin:0;
-    max-width:460px;
-    font-size:15px;
-    line-height:1.6;
-    color:#c9c9c9;
-}
-
-#footerBar{
-    margin-top:26px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-#footerBar a{
-    color:#eee;
-    text-decoration:none;
-    padding:9px 20px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.35);
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    transition:background .15s ease, border-color .15s ease;
-    font-size:14px;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-}
-#footerBar a:hover{
-    color:#fff;
-    background:rgba(255,255,255,.18);
-    border-color:rgba(255,255,255,.6);
-}
-#contactLink{
-    background:#5a4fcf;
-    border-color:#5a4fcf;
-}
-#contactLink:hover{
-    background:#6e63e0;
-    border-color:#6e63e0;
-}
-.icon-btn{
-    width:40px;
-    height:40px;
-    padding:0;
     justify-content:center;
-    border-radius:50%;
+    align-items:center;
+    gap:7px;
+    color:#fff;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.3)) drop-shadow(0 16px 24px rgba(0,0,0,.4));
+    transition:transform .18s ease, filter .18s ease;
 }
+.piece:hover{
+    z-index:30;
+    transform:scale(1.035) translateY(-3px);
+    filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)) drop-shadow(0 22px 32px rgba(0,0,0,.5));
+}
+.piece:active{
+    transform:scale(1.01);
+}
+.piece:focus-visible{
+    z-index:30;
+    outline:2px solid #fff;
+    outline-offset:4px;
+    border-radius:8px;
+}
+
+.piece-fill{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+}
+
+.piece-sheen{
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:
+        linear-gradient(152deg, rgba(255,255,255,.4) 0%, rgba(255,255,255,0) 42%),
+        linear-gradient(-28deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 38%);
+    mix-blend-mode:overlay;
+    pointer-events:none;
+}
+
+.piece-fill, .piece-sheen{
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+}
+
+.piece-content{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(135deg);
+}
+
+.piece-tooltip{
+    position:absolute;
+    bottom:100%;
+    left:50%;
+    transform:translateX(-50%);
+    margin-bottom:10px;
+    width:max-content;
+    max-width:17ch;
+    font-size:12.5px;
+    font-weight:500;
+    line-height:1.35;
+    color:#fff;
+    background:rgba(20,20,24,.92);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:10px;
+    padding:8px 11px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease;
+    box-shadow:0 8px 18px rgba(0,0,0,.4);
+    z-index:10;
+}
+.piece:hover .piece-tooltip,
+.piece:focus-visible .piece-tooltip{
+    opacity:1;
+    transform:translateX(-50%) translateY(-2px);
+}
+
+.piece-teal{ left:13.135%; top:1.018%; width:47.99%;  height:38.182%; }
+.piece-blue{ left:1.28%;   top:30.849%; width:48.173%; height:38.267%; }
+.piece-yellow{ left:38.926%; top:30.79%; width:48.078%; height:38.29%; }
+.piece-red{  left:50.743%; top:60.792%; width:47.977%; height:38.19%; }
+
+.piece-teal .piece-fill{ background:linear-gradient(150deg,#f17d68 0%,#c43f28 100%); }
+.piece-blue .piece-fill{ background:linear-gradient(150deg,#3a82bf 0%,#154872 100%); }
+.piece-yellow .piece-fill{ background:linear-gradient(150deg,#e8c352 0%,#c7a023 100%); }
+.piece-red .piece-fill{ background:linear-gradient(150deg,#55c7bd 0%,#2a8a82 100%); }
+
+.piece-teal .piece-fill,   .piece-teal .piece-sheen  { -webkit-mask-image:url(#hole-teal);   mask-image:url(#hole-teal); }
+.piece-blue .piece-fill,   .piece-blue .piece-sheen  { -webkit-mask-image:url(#hole-blue);   mask-image:url(#hole-blue); }
+.piece-yellow .piece-fill, .piece-yellow .piece-sheen{ -webkit-mask-image:url(#hole-yellow); mask-image:url(#hole-yellow); }
+.piece-red .piece-fill,    .piece-red .piece-sheen   { -webkit-mask-image:url(#hole-red);    mask-image:url(#hole-red); }
 
 #copyToast{
     position:fixed;
@@ -193,7 +214,7 @@ h1{
     border:1px solid rgba(255,255,255,.25);
     padding:10px 18px;
     border-radius:20px;
-    font-family:Arial,sans-serif;
+    font-family:"Bricolage Grotesque","Segoe UI",Arial,sans-serif;
     font-size:13px;
     white-space:nowrap;
     opacity:0;
@@ -211,29 +232,102 @@ h1{
 
 <body>
 
+<div id="glow" aria-hidden="true"></div>
+
 <div id="hero">
 
-    <div id="tiles">
-        <a class="tile tile-magazine" href="magazine.html">
-            <div class="tile-icon">📖</div>
-            <div class="tile-label">CV Magazine</div>
-            <div class="tile-sub">Mon CV à feuilleter, en version magazine</div>
+    <h1 id="nameBanner" aria-label="Jaouen Hérault">
+        <svg viewBox="0 0 600 140" role="img" aria-hidden="true">
+            <defs>
+                <mask id="name-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="140">
+                    <rect x="0" y="0" width="600" height="140" fill="#fff"/>
+                    <text x="300" y="73" text-anchor="middle" dominant-baseline="central" font-family="'Bricolage Grotesque','Segoe UI',Arial,sans-serif" font-weight="800" font-size="60" letter-spacing="-1.5" fill="#000">Jaouen Hérault</text>
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="600" height="140" rx="22" fill="#f3f3f1" mask="url(#name-mask)"/>
+        </svg>
+    </h1>
+    <p id="intro">Bienvenue sur mon interface professionnelle pour appuyer ma recherche d'emploi.</p>
+
+    <div id="puzzleWrap">
+    <div id="puzzle">
+
+        <svg width="0" height="0" style="position:absolute">
+            <defs>
+                <clipPath id="piece-teal-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.28040,0.00653 C0.28447,0.01079 0.30144,0.02731 0.30210,0.03100 C0.30561,0.05075 0.21509,0.12686 0.29762,0.21027 C0.37052,0.28396 0.49705,0.22766 0.48983,0.12260 C0.48771,0.09168 0.44769,0.02730 0.45789,0.00896 C0.46046,0.00432 0.51177,0.00620 0.52027,0.00623 C0.55904,0.00633 0.69763,0.00000 0.72380,0.01530 C0.78696,0.05222 0.71461,0.27916 0.77059,0.31841 C0.83129,0.36095 0.88162,0.26656 0.95456,0.30658 C0.97109,0.31565 0.98406,0.33083 0.99092,0.34834 C1.00000,0.37149 0.99811,0.39763 0.98585,0.41927 C0.96388,0.45805 0.91904,0.47012 0.87865,0.45434 C0.86368,0.44849 0.85085,0.43850 0.83564,0.43343 C0.80745,0.42403 0.76500,0.42934 0.75392,0.46126 C0.73711,0.50967 0.76241,0.69580 0.74388,0.72353 C0.70168,0.78669 0.49743,0.72347 0.44693,0.76252 C0.38041,0.81396 0.50394,0.89810 0.43991,0.96974 C0.42588,0.98544 0.40615,0.99552 0.38519,0.99765 C0.36195,1.00000 0.34144,0.99395 0.32373,0.97867 C0.24042,0.90676 0.37216,0.82278 0.31050,0.76525 C0.27675,0.73377 0.09681,0.76424 0.04318,0.74866 C0.02679,0.74390 0.01473,0.73307 0.00896,0.71702 C0.00233,0.69858 0.00004,0.48638 0.00481,0.46377 C0.00918,0.44299 0.08460,0.48428 0.09740,0.48774 C0.17214,0.50793 0.24408,0.45182 0.24127,0.37437 C0.24019,0.34479 0.22799,0.31734 0.20620,0.29720 C0.11719,0.21498 0.03902,0.32390 0.00857,0.29358 C0.00037,0.28543 0.00363,0.19353 0.00390,0.17620 C0.00436,0.14742 0.00000,0.06378 0.00822,0.04220 C0.01373,0.02774 0.02521,0.01633 0.03978,0.01111 C0.06780,0.00109 0.23928,0.00577 0.28040,0.00653 Z"/>
+                </clipPath>
+                <clipPath id="piece-blue-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.54133,0.00789 C0.53950,0.08137 0.46223,0.14723 0.55028,0.21866 C0.57416,0.23803 0.60514,0.24687 0.63564,0.24317 C0.67251,0.23871 0.70476,0.21614 0.72229,0.18346 C0.75988,0.11337 0.68506,0.02813 0.70366,0.00958 C0.70677,0.00647 0.72534,0.00753 0.73037,0.00754 C0.78221,0.00757 0.90587,0.00000 0.94939,0.00971 C0.96308,0.01276 0.97494,0.01952 0.98271,0.03148 C0.99822,0.05536 0.99344,0.14073 0.99330,0.17301 C0.99323,0.18691 0.99378,0.29482 0.99023,0.29824 C0.96750,0.32008 0.86424,0.21291 0.78477,0.30492 C0.76696,0.32555 0.75635,0.35267 0.75609,0.37998 C0.75583,0.40755 0.76642,0.43298 0.78452,0.45355 C0.86634,0.54655 0.96501,0.43970 0.98902,0.45912 C0.99262,0.46203 0.99241,0.47977 0.99254,0.48473 C0.99401,0.53930 1.00000,0.65730 0.99059,0.70619 C0.98802,0.71954 0.98270,0.73165 0.97148,0.73989 C0.92288,0.77560 0.71580,0.72420 0.68254,0.77154 C0.63650,0.83706 0.74912,0.89648 0.68322,0.97050 C0.66995,0.98540 0.64866,0.99631 0.62877,0.99827 C0.61127,1.00000 0.58354,0.98979 0.56984,0.97885 C0.48232,0.90894 0.63119,0.79689 0.54299,0.75661 C0.49609,0.73520 0.31713,0.76882 0.27576,0.74236 C0.21885,0.70596 0.27376,0.50088 0.24127,0.45307 C0.19404,0.38358 0.11861,0.49186 0.04491,0.45137 C0.02712,0.44159 0.01530,0.42594 0.00890,0.40684 C0.00000,0.38028 0.00178,0.36032 0.01626,0.33615 C0.07981,0.23003 0.17563,0.37947 0.23799,0.31075 C0.26814,0.27752 0.23468,0.08953 0.25429,0.04244 C0.25997,0.02879 0.26943,0.01873 0.28332,0.01346 C0.31630,0.00094 0.49401,0.00766 0.54133,0.00789 Z"/>
+                </clipPath>
+                <clipPath id="piece-yellow-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.69780,0.00882 C0.75256,0.01161 0.91879,0.00000 0.95762,0.01319 C0.97304,0.01842 0.98365,0.02882 0.98912,0.04413 C1.00000,0.07464 0.99076,0.13917 0.99318,0.17461 C0.99403,0.18719 0.99485,0.29813 0.99188,0.30099 C0.97058,0.32157 0.88079,0.22671 0.79951,0.29364 C0.78254,0.30762 0.72032,0.37139 0.78016,0.44952 C0.81466,0.49455 0.87240,0.50561 0.92269,0.48134 C0.93205,0.47682 0.96419,0.45845 0.97216,0.45800 C0.98459,0.45730 0.99100,0.47169 0.99250,0.48159 C0.99729,0.51307 0.99703,0.69975 0.98703,0.72279 C0.98135,0.73588 0.96790,0.74582 0.95448,0.74991 C0.90331,0.76554 0.72041,0.73710 0.69008,0.76482 C0.62548,0.82386 0.75491,0.89768 0.67890,0.97522 C0.66069,0.99380 0.63682,1.00000 0.61131,0.99760 C0.59204,0.99579 0.57385,0.98560 0.56085,0.97146 C0.49327,0.89799 0.61893,0.81632 0.55116,0.76210 C0.51262,0.73126 0.29562,0.78131 0.26103,0.73133 C0.22962,0.68596 0.26433,0.51656 0.24550,0.46289 C0.24142,0.45128 0.23314,0.44422 0.22227,0.43895 C0.15562,0.40662 0.06526,0.52473 0.01015,0.41669 C0.00000,0.39679 0.00113,0.36365 0.01081,0.34375 C0.01810,0.32878 0.03186,0.31673 0.04650,0.30911 C0.12110,0.27030 0.16377,0.36261 0.22919,0.31944 C0.28555,0.28224 0.20812,0.05503 0.27582,0.01843 C0.30261,0.00395 0.34584,0.01010 0.37626,0.01008 C0.40702,0.01006 0.50728,0.00445 0.53042,0.01125 C0.53554,0.01275 0.54018,0.01934 0.54201,0.02404 C0.55137,0.04796 0.46334,0.13346 0.53922,0.21039 C0.60862,0.28075 0.72904,0.23732 0.73398,0.14092 C0.73641,0.09358 0.70672,0.05891 0.69780,0.00882 Z"/>
+                </clipPath>
+                <clipPath id="piece-red-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.29687,0.00626 C0.29251,0.08024 0.22645,0.13762 0.29469,0.20850 C0.31467,0.22925 0.34187,0.24174 0.37066,0.24341 C0.40748,0.24554 0.44238,0.22968 0.46555,0.20110 C0.53177,0.11946 0.43647,0.03155 0.45964,0.00884 C0.46347,0.00509 0.56523,0.00661 0.57887,0.00664 C0.61177,0.00671 0.70037,0.00117 0.72532,0.01638 C0.78385,0.05208 0.71666,0.28042 0.77070,0.31830 C0.83338,0.36222 0.93620,0.23059 0.98929,0.34400 C1.00000,0.36688 0.99974,0.39330 0.98840,0.41588 C0.92730,0.53754 0.78944,0.35957 0.75347,0.46318 C0.73498,0.51643 0.76717,0.68824 0.73932,0.72806 C0.70226,0.78103 0.49116,0.72744 0.44751,0.76141 C0.37981,0.81410 0.50381,0.89671 0.43810,0.97062 C0.42408,0.98638 0.40481,0.99645 0.38370,0.99819 C0.36172,1.00000 0.33950,0.99242 0.32269,0.97827 C0.23827,0.90721 0.37329,0.82574 0.30952,0.76443 C0.27844,0.73454 0.09586,0.76425 0.04263,0.74815 C0.02674,0.74335 0.01500,0.73341 0.00919,0.71776 C0.00330,0.70191 0.00010,0.48527 0.00371,0.46331 C0.00504,0.45523 0.02250,0.45922 0.02826,0.46011 C0.05255,0.46384 0.07086,0.48079 0.09538,0.48737 C0.17087,0.50760 0.24521,0.45340 0.24105,0.37367 C0.23742,0.30424 0.17386,0.25464 0.10553,0.26857 C0.07744,0.27430 0.06408,0.28881 0.04078,0.29593 C0.03514,0.29765 0.00964,0.30177 0.00559,0.29787 C0.00237,0.29476 0.00368,0.19294 0.00372,0.17990 C0.00381,0.15200 0.00000,0.06062 0.00877,0.04003 C0.01472,0.02606 0.02570,0.01562 0.04013,0.01069 C0.07142,0.00000 0.25036,0.00664 0.29687,0.00626 Z"/>
+                </clipPath>
+
+                <mask id="hole-teal" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <rect x="0" y="0" width="1" height="1" fill="#fff"/>
+                    <g transform="translate(0.38,0.38) scale(0.01) rotate(135,12,12)" fill="#000">
+                        <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+                        <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+                    </g>
+                </mask>
+                <mask id="hole-blue" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <rect x="0" y="0" width="1" height="1" fill="#fff"/>
+                    <g transform="translate(0.38,0.38) scale(0.01) rotate(135,12,12)" fill="#000">
+                        <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zM8.5 8h3.8v2.05h.05c.53-1 1.84-2.05 3.8-2.05 4.07 0 4.82 2.68 4.82 6.16V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/>
+                    </g>
+                </mask>
+                <mask id="hole-yellow" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <rect x="0" y="0" width="1" height="1" fill="#fff"/>
+                    <g transform="translate(0.38,0.38) scale(0.01) rotate(135,12,12)" fill="#000">
+                        <path d="M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.447A23.113 23.113 0 0018 8.25c0-1.336-.054-2.658-.159-3.965a1.142 1.142 0 00-2.147-.465l-.072.197a23.025 23.025 0 00-1.741.329zM18 8.25c0 2.015-.282 3.966-.808 5.818a.75.75 0 101.44.414A24.13 24.13 0 0019.5 8.25a.75.75 0 00-1.5 0z"/>
+                    </g>
+                </mask>
+                <mask id="hole-red" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <rect x="0" y="0" width="1" height="1" fill="#fff"/>
+                    <g transform="translate(0.38,0.38) scale(0.01) rotate(135,12,12)" fill="#000">
+                        <path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z"/>
+                    </g>
+                </mask>
+            </defs>
+        </svg>
+
+        <a class="piece piece-teal" id="contactLink" href="mailto:jaouenherault@gmail.com" aria-label="Me contacter">
+            <div class="piece-fill" style="clip-path:url(#piece-teal-clip)"></div>
+            <div class="piece-sheen" style="clip-path:url(#piece-teal-clip)"></div>
+            <div class="piece-content">
+                <div class="piece-tooltip">Copiez mon e-mail et contactez-moi directement</div>
+            </div>
         </a>
-        <div id="connector"></div>
-        <a class="tile tile-campaign" href="recrutement.html">
-            <div class="tile-badge">Bientôt</div>
-            <div class="tile-icon">📣</div>
-            <div class="tile-label">Campagne de recrutement</div>
-            <div class="tile-sub">Campagne de communication recrutement</div>
+
+        <a class="piece piece-blue" href="https://www.linkedin.com/in/jaouen-h%C3%A9rault/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <div class="piece-fill" style="clip-path:url(#piece-blue-clip)"></div>
+            <div class="piece-sheen" style="clip-path:url(#piece-blue-clip)"></div>
+            <div class="piece-content">
+                <div class="piece-tooltip">Mon profil professionnel sur LinkedIn</div>
+            </div>
         </a>
+
+        <a class="piece piece-yellow" href="recrutement.html" aria-label="Campagne de communication">
+            <div class="piece-fill" style="clip-path:url(#piece-yellow-clip)"></div>
+            <div class="piece-sheen" style="clip-path:url(#piece-yellow-clip)"></div>
+            <div class="piece-content">
+                <div class="piece-tooltip">Campagne de communication avec mon CV comme produit</div>
+            </div>
+        </a>
+
+        <a class="piece piece-red" href="magazine.html" aria-label="CV Magazine">
+            <div class="piece-fill" style="clip-path:url(#piece-red-clip)"></div>
+            <div class="piece-sheen" style="clip-path:url(#piece-red-clip)"></div>
+            <div class="piece-content">
+                <div class="piece-tooltip">Feuilletez mon CV en version magazine</div>
+            </div>
+        </a>
+
     </div>
-
-    <h1>Jaouen Hérault</h1>
-    <p id="tagline">Bienvenue — choisissez une rubrique ci-dessus, ou contactez-moi directement.</p>
-
-    <div id="footerBar">
-        <a id="contactLink" href="mailto:jaouenherault@gmail.com">✉️ Me contacter</a>
-        <a class="icon-btn" href="https://www.linkedin.com/in/jaouen-h%C3%A9rault/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
     </div>
 
 </div>
