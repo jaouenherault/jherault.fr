@@ -103,31 +103,39 @@ body{
     position:absolute;
     z-index:0;
     container-type:inline-size;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:7px;
     color:#fff;
     text-decoration:none;
     text-align:center;
     cursor:pointer;
     filter:drop-shadow(0 2px 3px rgba(0,0,0,.3)) drop-shadow(0 16px 24px rgba(0,0,0,.4));
-    transition:transform .18s ease, filter .18s ease;
+    transition:filter .18s ease;
 }
 .piece:hover{
     z-index:30;
-    transform:scale(1.035) translateY(-3px);
     filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)) drop-shadow(0 22px 32px rgba(0,0,0,.5));
-}
-.piece:active{
-    transform:scale(1.01);
 }
 .piece:focus-visible{
     z-index:30;
     outline:2px solid #fff;
     outline-offset:4px;
     border-radius:8px;
+}
+
+.piece-body{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:7px;
+    transition:transform .18s ease;
+}
+.piece:hover .piece-body{
+    transform:scale(1.035) translateY(-3px);
+}
+.piece:active .piece-body{
+    transform:scale(1.01);
 }
 
 .piece-fill{
@@ -204,6 +212,32 @@ body{
 .piece-blue .piece-fill,   .piece-blue .piece-sheen  { -webkit-mask-image:url(#hole-blue);   mask-image:url(#hole-blue); }
 .piece-yellow .piece-fill, .piece-yellow .piece-sheen{ -webkit-mask-image:url(#hole-yellow); mask-image:url(#hole-yellow); }
 .piece-red .piece-fill,    .piece-red .piece-sheen   { -webkit-mask-image:url(#hole-red);    mask-image:url(#hole-red); }
+
+.piece-art{
+    position:absolute;
+    inset:-5%;
+    z-index:-3;
+    background-image:url(magazine-art.png);
+    background-size:contain;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    opacity:1;
+    pointer-events:none;
+    transform:rotate(135deg) translate(150px,-14px);
+}
+
+.piece-plane{
+    position:absolute;
+    inset:-250%;
+    z-index:-3;
+    background-image:url(plane-art.webp);
+    background-size:170px auto;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    opacity:1;
+    pointer-events:none;
+    transform:rotate(135deg) translate(-93px,79px) rotate(-6deg);
+}
 
 #copyToast{
     position:fixed;
@@ -297,34 +331,44 @@ body{
         </svg>
 
         <a class="piece piece-teal" id="contactLink" href="mailto:jaouenherault@gmail.com" aria-label="Me contacter">
-            <div class="piece-fill" style="clip-path:url(#piece-teal-clip)"></div>
-            <div class="piece-sheen" style="clip-path:url(#piece-teal-clip)"></div>
-            <div class="piece-content">
-                <div class="piece-tooltip">Copiez mon e-mail et contactez-moi directement</div>
+            <div class="piece-body">
+                <div class="piece-fill" style="clip-path:url(#piece-teal-clip)"></div>
+                <div class="piece-sheen" style="clip-path:url(#piece-teal-clip)"></div>
+                <div class="piece-content">
+                    <div class="piece-tooltip">Copiez mon e-mail et contactez-moi directement</div>
+                </div>
             </div>
         </a>
 
         <a class="piece piece-blue" href="https://www.linkedin.com/in/jaouen-h%C3%A9rault/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <div class="piece-fill" style="clip-path:url(#piece-blue-clip)"></div>
-            <div class="piece-sheen" style="clip-path:url(#piece-blue-clip)"></div>
-            <div class="piece-content">
-                <div class="piece-tooltip">Mon profil professionnel sur LinkedIn</div>
+            <div class="piece-body">
+                <div class="piece-fill" style="clip-path:url(#piece-blue-clip)"></div>
+                <div class="piece-sheen" style="clip-path:url(#piece-blue-clip)"></div>
+                <div class="piece-content">
+                    <div class="piece-tooltip">Mon profil professionnel sur LinkedIn</div>
+                </div>
             </div>
         </a>
 
         <a class="piece piece-yellow" href="recrutement.html" aria-label="Campagne de communication">
-            <div class="piece-fill" style="clip-path:url(#piece-yellow-clip)"></div>
-            <div class="piece-sheen" style="clip-path:url(#piece-yellow-clip)"></div>
-            <div class="piece-content">
-                <div class="piece-tooltip">Campagne de communication avec mon CV comme produit</div>
+            <div class="piece-plane"></div>
+            <div class="piece-body">
+                <div class="piece-fill" style="clip-path:url(#piece-yellow-clip)"></div>
+                <div class="piece-sheen" style="clip-path:url(#piece-yellow-clip)"></div>
+                <div class="piece-content">
+                    <div class="piece-tooltip">Campagne de communication avec mon CV comme produit</div>
+                </div>
             </div>
         </a>
 
         <a class="piece piece-red" href="magazine.html" aria-label="CV Magazine">
-            <div class="piece-fill" style="clip-path:url(#piece-red-clip)"></div>
-            <div class="piece-sheen" style="clip-path:url(#piece-red-clip)"></div>
-            <div class="piece-content">
-                <div class="piece-tooltip">Feuilletez mon CV en version magazine</div>
+            <div class="piece-art"></div>
+            <div class="piece-body">
+                <div class="piece-fill" style="clip-path:url(#piece-red-clip)"></div>
+                <div class="piece-sheen" style="clip-path:url(#piece-red-clip)"></div>
+                <div class="piece-content">
+                    <div class="piece-tooltip">Feuilletez mon CV en version magazine</div>
+                </div>
             </div>
         </a>
 
